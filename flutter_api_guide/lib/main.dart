@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_api_guide/Views/Create_Custom_Model_With_GetAPI/custom_model_screen.dart';
 import 'package:flutter_api_guide/Views/Simple_GetAPI_with_Posts_Model/simple_post_api_screen.dart';
 
 void main() {
@@ -15,7 +16,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: SimplePostApiScreen(),
+      //home: SimplePostApiScreen(),
+      home: CustomModelScreen(),
     );
   }
 }

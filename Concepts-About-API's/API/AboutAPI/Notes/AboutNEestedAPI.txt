@@ -1,0 +1,61 @@
+==> API Format
+
+[
+  {
+    "id": 1,
+    "name": "Leanne Graham",
+    "username": "Bret",
+    "email": "Sincere@april.biz",
+    "address": {
+      "street": "Kulas Light",
+      "suite": "Apt. 556",
+      "city": "Gwenborough",
+      "zipcode": "92998-3874",
+      "geo": {
+        "lat": "-37.3159",
+        "lng": "81.1496"
+      }
+    },
+    "phone": "1-770-736-8031 x56442",
+    "website": "hildegard.org",
+    "company": {
+      "name": "Romaguera-Crona",
+      "catchPhrase": "Multi-layered client-server neural-net",
+      "bs": "harness real-time e-markets"
+    }
+  },
+]
+
+
+
+==> .formMap() Method 
+
+class UserApi {
+  final String name;
+  final String email;
+  final String companyName;
+  final String address;
+
+  UserApi({
+    required this.name,
+    required this.email,
+    required this.companyName,
+    required this.address,
+  });
+
+  factory UserApi.fromMap(Map<String, dynamic> map) {
+    final address = map['address'];
+    final company = map['company'];
+
+    return UserApi(
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      address: '${address['street']}, ${address['city']}',
+      companyName: company['name'] ?? '',
+    );
+  }
+
+  // other methods (copyWith, toMap, etc.) remain unchanged...
+}
+
+

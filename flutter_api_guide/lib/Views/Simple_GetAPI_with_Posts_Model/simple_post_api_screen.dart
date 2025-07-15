@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 
 class SimplePostApiScreen extends StatelessWidget {
   SimplePostApiScreen({super.key});
-
+  // we create empty list becasue hmary pass jo json data the udhr koi list ka name ni tha iss lyee idhr emplty
+  // list create ki ta k easily har index per key value pair ko access kr skyn
   List<PostsModel> postList = [];
 
   Future<List<PostsModel>> getPostApi() async {

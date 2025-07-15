@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_api_guide/Views/home.dart';
+import 'package:flutter_api_guide/Views/Simple_GetAPI_with_Posts_Model/simple_post_api_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home: const Home(),
+      home: SimplePostApiScreen(),
     );
   }
 }

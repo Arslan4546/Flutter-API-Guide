@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class PostImage extends StatefulWidget {
-  const PostImage({Key? key}) : super(key: key);
+  const PostImage({super.key});
 
   @override
   _UploadImageScreenState createState() => _UploadImageScreenState();
@@ -43,13 +43,13 @@ class _UploadImageScreenState extends State<PostImage> {
 
     var uri = Uri.parse('https://fakestoreapi.com/products');
 
-    var request = new http.MultipartRequest('POST', uri);
+    var request = http.MultipartRequest('POST', uri);
 
     request.fields['title'] = "Static title";
 
-    var multiport = new http.MultipartFile('image', stream, length);
+    var multiPort = http.MultipartFile('image', stream, length);
 
-    request.files.add(multiport);
+    request.files.add(multiPort);
 
     var response = await request.send();
 
@@ -84,14 +84,12 @@ class _UploadImageScreenState extends State<PostImage> {
               child: Container(
                 child: image == null
                     ? Center(child: Text('Pick Image'))
-                    : Container(
-                        child: Center(
-                          child: Image.file(
-                            File(image!.path).absolute,
-                            height: 100,
-                            width: 100,
-                            fit: BoxFit.cover,
-                          ),
+                    : Center(
+                        child: Image.file(
+                          File(image!.path).absolute,
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
                         ),
                       ),
               ),

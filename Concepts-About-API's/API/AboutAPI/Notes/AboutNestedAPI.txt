@@ -58,4 +58,157 @@ class UserApi {
   // other methods (copyWith, toMap, etc.) remain unchanged...
 }
 
+---------------------------------------------------------------------------------------------------------------------------
+-->  step-by-step guide 
+
+--> json data
+
+{
+  "products": [
+    {
+      "id": 1,
+      "title": "Essence Mascara Lash Princess",
+      "description": "The Essence Mascara Lash Princess is a popular mascara known for its volumizing and lengthening effects. Achieve dramatic lashes with this long-lasting and cruelty-free formula.",
+      "category": "beauty",
+      "price": 9.99,
+      "discountPercentage": 10.48,
+      "rating": 2.56,
+      "stock": 99,
+      "tags": [
+        "beauty",
+        "mascara"
+      ],
+      "brand": "Essence",
+      "sku": "BEA-ESS-ESS-001",
+      "weight": 4,
+      "dimensions": {
+        "width": 15.14,
+        "height": 13.08,
+        "depth": 22.99
+      },
+      "warrantyInformation": "1 week warranty",
+      "shippingInformation": "Ships in 3-5 business days",
+      "availabilityStatus": "In Stock",
+      "reviews": [
+        {
+          "rating": 3,
+          "comment": "Would not recommend!",
+          "date": "2025-04-30T09:41:02.053Z",
+          "reviewerName": "Eleanor Collins",
+          "reviewerEmail": "eleanor.collins@x.dummyjson.com"
+        },
+        {
+          "rating": 4,
+          "comment": "Very satisfied!",
+          "date": "2025-04-30T09:41:02.053Z",
+          "reviewerName": "Lucas Gordon",
+          "reviewerEmail": "lucas.gordon@x.dummyjson.com"
+        },
+        {
+          "rating": 5,
+          "comment": "Highly impressed!",
+          "date": "2025-04-30T09:41:02.053Z",
+          "reviewerName": "Eleanor Collins",
+          "reviewerEmail": "eleanor.collins@x.dummyjson.com"
+        }
+      ],
+      "returnPolicy": "No return policy",
+      "minimumOrderQuantity": 48,
+      "meta": {
+        "createdAt": "2025-04-30T09:41:02.053Z",
+        "updatedAt": "2025-04-30T09:41:02.053Z",
+        "barcode": "5784719087687",
+        "qrCode": "https://cdn.dummyjson.com/public/qr-code.png"
+      },
+      "images": [
+        "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
+      ],
+      "thumbnail": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp"
+    },],}
+
+--> model for parsing json data 
+
+class ProductModel {
+  final int id;
+  final String title;
+  final double price;
+  final double rating;
+  final String thumbnail;
+
+  // Simple string list
+  final List<String> images;
+
+  // ReviewModel ki list
+  final List<ReviewModel> reviews;
+
+  ProductModel({
+    required this.id,
+    required this.title,
+    required this.price,
+    required this.rating,
+    required this.thumbnail,
+    required this.images,
+    required this.reviews,
+  });
+
+  factory ProductModel.fromJson(Map<String, dynamic> json) {
+    return ProductModel(
+      id: json['id'] ?? 0,
+      title: json['title'] ?? '',
+      price: (json['price'] ?? 0).toDouble(),
+      rating: (json['rating'] ?? 0).toDouble(),
+      thumbnail: json['thumbnail'] ?? '',
+
+      // Images — simple String list hai
+      images: List<String>.from(json['images'] ?? []),
+
+      // Reviews — complex object list hai, fromJson lagega
+      reviews: (json['reviews'] as List? ?? [])
+          .map((item) => ReviewModel.fromJson(item))
+          .toList(),
+    );
+  }
+}
+
+class ReviewModel {
+  final int rating;
+  final String comment;
+  final String reviewerName;
+  final String reviewerEmail;
+  final String date;
+
+  ReviewModel({
+    required this.rating,
+    required this.comment,
+    required this.reviewerName,
+    required this.reviewerEmail,
+    required this.date,
+  });
+
+  factory ReviewModel.fromJson(Map<String, dynamic> json) {
+    return ReviewModel(
+      rating: json['rating'] ?? 0,
+      comment: json['comment'] ?? '',
+      reviewerName: json['reviewerName'] ?? '',
+      reviewerEmail: json['reviewerEmail'] ?? '',
+      date: json['date'] ?? '',
+    );
+  }
+}
+
+### Farq samjho — images vs reviews
+```
+images: ["url1", "url2"]
+→ Simple String hai
+→ List<String>.from() kaafi hai
+→ Alag model ki zaroorat NAHI
+
+reviews: [{"rating": 3, "comment": "..."}]
+→ Complex object hai
+→ ReviewModel.fromJson() lagega
+→ Alag model ZAROORI hai
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
 
